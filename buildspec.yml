@@ -9,11 +9,11 @@ phases:
 
 artifacts:
   discard-paths: yes
+  name: spring-boot-api-$(date +%Y-%m-%d).zip
   files:
     - target/demo-0.0.1-SNAPSHOT.jar
     - scripts/*.sh
     - appspec.yml
-  name: spring-boot-api-$(date +%Y-%m-%d).zip
 
 cache:
   paths:
