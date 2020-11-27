@@ -1,1 +1,1 @@
-java -jar demo-0.0.1-SNAPSHOT.jar > /dev/null &
+java -jar demo-0.0.1-SNAPSHOT.jar & echo $! > ./pid.file &

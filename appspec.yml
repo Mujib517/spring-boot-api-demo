@@ -5,18 +5,15 @@ files:
     destination: /home/ubuntu
 hooks:
   BeforeInstall:
-    commands:
-      - chmod +x start-server.sh
-      - chmod +x stop-server.sh
   AfterInstall:
   ApplicationStart:
     - location: start-server.sh
       timeout: 300
       runas: root
-#  ApplicationStop:
-#    - location: stop-server.sh
-#      timeout: 300
-#      runas: root
+  ApplicationStop:
+    - location: stop-server.sh
+      timeout: 300
+      runas: root
 
 
 

@@ -1,1 +1,1 @@
-kill $(lsof -i:8080)
+kill $(cat ./pid.file)
