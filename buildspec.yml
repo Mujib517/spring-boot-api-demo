@@ -1,19 +1,26 @@
 version: 0.2
 phases:
+
   install:
     commands:
       - mvn install
+
+  pre_build:
+    commands:
+      - echo 'Logging into aws'
+      - $(aws ecr get-login --no-include-email --region ap-south-1)
   build:
     commands:
+      - echo 'Packaging...'
       - mvn clean package
+      - echo 'Building docker image'
+      - docker build -t spring-api-mujib .
+      - docker tag spring-api-mujib:latest 160071257600.dkr.ecr.ap-south-1.amazonaws.com/spring-api-mujib:latest
 
-artifacts:
-  discard-paths: yes
-  name: myname-$(date +%Y-%m-%d)
-  files:
-    - target/demo-0.0.1-SNAPSHOT.jar
-    - scripts/*.sh
-    - appspec.yml
+  post_build:
+    commands:
+      - echo 'Pushing docker image...'
+      - docker push 160071257600.dkr.ecr.ap-south-1.amazonaws.com/spring-api-mujib:latest
 
 cache:
   paths:
