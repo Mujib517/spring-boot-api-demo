@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu
+    destination: /home/ec2-user
 hooks:
   BeforeInstall:
   AfterInstall:
@@ -10,10 +10,10 @@ hooks:
     - location: start-server.sh
       timeout: 300
       runas: root
-#  ApplicationStop:
-#    - location: stop-server.sh
-#      timeout: 300
-#      runas: root
+  ApplicationStop:
+    - location: stop-server.sh
+      timeout: 300
+      runas: root
 
 
 
