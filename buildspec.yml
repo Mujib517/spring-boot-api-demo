@@ -13,7 +13,7 @@ artifacts:
   discard-paths: yes
   name: api-$(date +%Y-%m-%d)
   files:
-    - target/demo-0.0.1-SNAPSHOT.war
+    - target/root.war
 cache:
   paths:
     - '/root/.m2/**/*'
