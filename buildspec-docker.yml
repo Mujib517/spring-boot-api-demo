@@ -1,0 +1,28 @@
+version: 0.2
+phases:
+
+  install:
+    commands:
+      - mvn install
+
+  pre_build:
+    commands:
+      - echo 'Logging into aws'
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 160071257600.dkr.ecr.ap-south-1.amazonaws.com
+
+  build:
+    commands:
+      - echo 'Packaging...'
+      - mvn clean package
+      - echo 'Building docker image'
+      - docker build -t spring-api-mujib .
+      - docker tag spring-api-mujib:latest 160071257600.dkr.ecr.ap-south-1.amazonaws.com/spring-api-mujib:latest
+
+  post_build:
+    commands:
+      - echo 'Pushing docker image...'
+      - docker push 160071257600.dkr.ecr.ap-south-1.amazonaws.com/spring-api-mujib:latest
+
+cache:
+  paths:
+    - '/root/.m2/**/*'
