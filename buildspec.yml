@@ -14,9 +14,6 @@ artifacts:
   name: api-$(date +%Y-%m-%d)
   files:
     - target/demo-0.0.1-SNAPSHOT.war
-    - scripts/*.sh
-    - appspec.yml
-
 cache:
   paths:
     - '/root/.m2/**/*'
