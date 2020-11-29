@@ -1,21 +1,28 @@
 package com.aws.api.demo.controllers;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@WebMvcTest
+@ExtendWith(MockitoExtension.class)
 public class HealthControllerTests {
 
-    @Autowired
-    private MockMvc mockMvc;
+    @InjectMocks
+    HealthController ctrl;
 
     @Test
-    public void shouldReturn200Status() throws Exception {
-        mockMvc.perform(get("/health")).andExpect(status().isOk());
+    public void shouldReturn200Status() {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        RequestContextHolder.setRequestAttributes(new ServletRequestAttributes(request));
+
+        String res = ctrl.get();
+
+        assertEquals(res, "Up");
     }
 }
